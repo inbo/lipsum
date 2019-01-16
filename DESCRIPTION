@@ -9,4 +9,5 @@ Description: Functions that generate dummy text. This is useful when developping
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1

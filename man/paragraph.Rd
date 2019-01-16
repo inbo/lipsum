@@ -4,10 +4,12 @@
 \alias{paragraph}
 \title{return lipsum paragraphs}
 \usage{
-paragraph(id, verbose = TRUE)
+paragraph(id, n = 1, verbose = TRUE)
 }
 \arguments{
 \item{id}{the id of the paragraph}
+
+\item{n}{the number of random paragraphs. Only used when \code{id} is not given.}
 
 \item{verbose}{print the paragraphs}
 }
@@ -18,6 +20,8 @@ an invisible vector of paragraphs
 return lipsum paragraphs
 }
 \examples{
+paragraph()
+paragraph(n = 2)
 paragraph(10)
 paragraph(c(7, 1))
 z <- paragraph(1, verbose = FALSE)
