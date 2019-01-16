@@ -1,0 +1,12 @@
+Package: lipsum
+Type: Package
+Title: Generate dummy text
+Version: 0.1.0
+Authors@R: c(
+  person("Thierry", "Onkelinx", email = "thierry.onkelinx@inbo.be", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-8804-4216")), 
+  person("Research Institute for Nature and Forest", email = "info@inbo.be", role = c("cph", "fnd")))
+Description: Functions that generate dummy text. This is useful when developping a corporate identity for documents.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
