@@ -18,21 +18,32 @@
 sentence <- function(id, n = 1, words, characters, verbose = TRUE) {
   if (missing(id)) {
     if (missing(words)) {
-      id <- sample(nrow(lipsum), size = n, replace = FALSE)
+      id <- seq_along(lipsum$sentence)
     } else if (missing(characters)) {
+      stopifnot(
+        is.numeric(words),
+        length(words) == 1
+      )
       delta <- abs(lipsum$words - words)
-      id <- sample(
-        which(delta == min(delta)),
-        size = n,
-        replace = FALSE
-      )
+      extra <- 0
+      while (length(which(delta <= min(delta) + extra)) < n) {
+        extra <- extra + 1
+      }
+      id <- which(delta == min(delta))
     } else {
-      delta <- abs(lipsum$characters - characters)
-      id <- sample(
-        which(delta == min(delta)),
-        size = n,
-        replace = FALSE
+      stopifnot(
+        is.numeric(characters),
+        length(words) == 1
       )
+      delta <- abs(lipsum$characters - characters)
+      extra <- 0
+      while (length(which(delta <= min(delta) + extra)) < n) {
+        extra <- extra + 1
+      }
+      id <- which(delta == min(delta))
+    }
+    if (length(id) > 1) {
+      id <- sample(id, size = n)
     }
     return(sentence(id = id, verbose = verbose))
   }

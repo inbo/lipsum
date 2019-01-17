@@ -4,12 +4,14 @@
 \alias{paragraph}
 \title{return lipsum paragraphs}
 \usage{
-paragraph(id, words, n = 1, verbose = TRUE)
+paragraph(id, words, characters, n = 1, verbose = TRUE)
 }
 \arguments{
 \item{id}{the id of the paragraph}
 
 \item{words}{an optional prefered number of words. Only used when \code{ìd} is not given.}
+
+\item{characters}{an optional prefered number of characters. Only used when \code{ìd} and \code{words} are not given.}
 
 \item{n}{the number of random paragraphs. Only used when \code{id} is not given.}
 
@@ -28,5 +30,6 @@ paragraph(10)
 paragraph(c(7, 1))
 z <- paragraph(1, verbose = FALSE)
 cat(z)
-paragraph(words = 10, n = 2)
+paragraph(words = 12, n = 2)
+paragraph(characters = 90)
 }

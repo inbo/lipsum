@@ -1,7 +1,7 @@
 #' return lipsum paragraphs
 #' @param id the id of the paragraph
 #' @param n the number of random paragraphs. Only used when `id` is not given.
-#' @param words an optional prefered number of words. Only used when `ìd` is not given.
+#' @inheritParams sentence
 #' @param verbose print the paragraphs
 #' @return an invisible vector of paragraphs
 #' @export
@@ -13,23 +13,39 @@
 #' paragraph(c(7, 1))
 #' z <- paragraph(1, verbose = FALSE)
 #' cat(z)
-#' paragraph(words = 10, n = 2)
-paragraph <- function(id, words, n = 1, verbose = TRUE) {
+#' paragraph(words = 12, n = 2)
+#' paragraph(characters = 90)
+paragraph <- function(id, words, characters, n = 1, verbose = TRUE) {
   if (missing(id)) {
     if (missing(words)) {
-      id <- sample(max(lipsum$paragraph), size = n)
-    } else {
+      id <- unique(lipsum$paragraph)
+    } else if (missing(characters)) {
       stopifnot(
         is.numeric(words),
         length(words) == 1
       )
       available <- aggregate(words ~ paragraph, lipsum, sum)
-      id <- sample(
-        available$paragraph,
-        size = n,
-        replace = FALSE,
-        prob = 1 / (1 + abs(available$words - words) ^ 2)
+      delta <- abs(available$words - words)
+      extra <- 0
+      while (length(which(delta <= min(delta) + extra)) < n) {
+        extra <- extra + 1
+      }
+      id <- available$paragraph[delta <= min(delta) + extra]
+    } else {
+      stopifnot(
+        is.numeric(characters),
+        length(words) == 1
       )
+      available <- aggregate(characters ~ paragraph, lipsum, sum)
+      delta <- abs(available$characters - characters)
+      extra <- 0
+      while (length(which(delta <= min(delta) + extra)) < n) {
+        extra <- extra + 1
+      }
+      id <- available$paragraph[delta <= min(delta) + extra]
+    }
+    if (length(id) > 1) {
+      id <- sample(id, size = n)
     }
     return(paragraph(id = id, verbose = verbose))
   }
