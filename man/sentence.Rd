@@ -4,7 +4,7 @@
 \alias{sentence}
 \title{Return sentences from the lipsum corpus}
 \usage{
-sentence(id, n = 1, words, characters, verbose = TRUE)
+sentence(id, n = 1, words, characters)
 }
 \arguments{
 \item{id}{the number of the sentence}
@@ -14,11 +14,9 @@ sentence(id, n = 1, words, characters, verbose = TRUE)
 \item{words}{an optional prefered number of words. Only used when \code{ìd} is not given.}
 
 \item{characters}{an optional prefered number of characters. Only used when \code{ìd} and \code{words} are not given.}
-
-\item{verbose}{print the sentences}
 }
 \value{
-an invisible vector of sentences
+a string of sentences
 }
 \description{
 A single paragraph with the sentences will be displayed
@@ -26,8 +24,6 @@ A single paragraph with the sentences will be displayed
 \examples{
 sentence()
 sentence(1)
-z <- sentence(1, verbose = FALSE)
-cat(z)
 sentence(2:3)
 sentence(words = 5)
 }

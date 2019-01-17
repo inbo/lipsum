@@ -5,17 +5,14 @@
 #' @param n the number of random sentences. Only used when `id` is not given.
 #' @param words an optional prefered number of words. Only used when `ìd` is not given.
 #' @param characters an optional prefered number of characters. Only used when `ìd` and `words` are not given.
-#' @param verbose print the sentences
-#' @return an invisible vector of sentences
+#' @return a string of sentences
 #' @export
 #' @examples
 #' sentence()
 #' sentence(1)
-#' z <- sentence(1, verbose = FALSE)
-#' cat(z)
 #' sentence(2:3)
 #' sentence(words = 5)
-sentence <- function(id, n = 1, words, characters, verbose = TRUE) {
+sentence <- function(id, n = 1, words, characters) {
   if (missing(id)) {
     if (missing(words)) {
       id <- seq_along(lipsum$sentence)
@@ -45,7 +42,7 @@ sentence <- function(id, n = 1, words, characters, verbose = TRUE) {
     if (length(id) > 1) {
       id <- sample(id, size = n)
     }
-    return(sentence(id = id, verbose = verbose))
+    return(sentence(id = id))
   }
   stopifnot(
     is.numeric(id),
@@ -53,9 +50,5 @@ sentence <- function(id, n = 1, words, characters, verbose = TRUE) {
     all(id >= 1),
     all(id <= nrow(lipsum))
   )
-  selection <- lipsum$sentence[id]
-  if (isTRUE(verbose)) {
-    cat(selection, sep = " ")
-  }
-  return(invisible(selection))
+  return(paste(lipsum$sentence[id], collapes = " "))
 }

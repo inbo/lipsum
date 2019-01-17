@@ -4,7 +4,7 @@
 \alias{paragraph}
 \title{return lipsum paragraphs}
 \usage{
-paragraph(id, words, characters, n = 1, verbose = TRUE)
+paragraph(id, words, characters, n = 1)
 }
 \arguments{
 \item{id}{the id of the paragraph}
@@ -14,11 +14,9 @@ paragraph(id, words, characters, n = 1, verbose = TRUE)
 \item{characters}{an optional prefered number of characters. Only used when \code{ìd} and \code{words} are not given.}
 
 \item{n}{the number of random paragraphs. Only used when \code{id} is not given.}
-
-\item{verbose}{print the paragraphs}
 }
 \value{
-an invisible vector of paragraphs
+an string of paragraphs. The paragraphs are separated by a double newline character.
 }
 \description{
 return lipsum paragraphs
@@ -28,8 +26,6 @@ paragraph()
 paragraph(n = 2)
 paragraph(10)
 paragraph(c(7, 1))
-z <- paragraph(1, verbose = FALSE)
-cat(z)
 paragraph(words = 12, n = 2)
 paragraph(characters = 90)
 }

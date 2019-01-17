@@ -2,8 +2,7 @@
 #' @param id the id of the paragraph
 #' @param n the number of random paragraphs. Only used when `id` is not given.
 #' @inheritParams sentence
-#' @param verbose print the paragraphs
-#' @return an invisible vector of paragraphs
+#' @return an string of paragraphs. The paragraphs are separated by a double newline character.
 #' @export
 #' @importFrom stats aggregate
 #' @examples
@@ -11,11 +10,9 @@
 #' paragraph(n = 2)
 #' paragraph(10)
 #' paragraph(c(7, 1))
-#' z <- paragraph(1, verbose = FALSE)
-#' cat(z)
 #' paragraph(words = 12, n = 2)
 #' paragraph(characters = 90)
-paragraph <- function(id, words, characters, n = 1, verbose = TRUE) {
+paragraph <- function(id, words, characters, n = 1) {
   if (missing(id)) {
     if (missing(words)) {
       id <- unique(lipsum$paragraph)
@@ -47,7 +44,7 @@ paragraph <- function(id, words, characters, n = 1, verbose = TRUE) {
     if (length(id) > 1) {
       id <- sample(id, size = n)
     }
-    return(paragraph(id = id, verbose = verbose))
+    return(paragraph(id = id))
   }
   stopifnot(
     is.numeric(id),
@@ -60,9 +57,5 @@ paragraph <- function(id, words, characters, n = 1, verbose = TRUE) {
     sentence ~ paragraph, data = selection, FUN = paste, collapse = " "
   )
   rownames(selection) <- selection$paragraph
-  selection <- selection[as.character(id), ]
-  if (isTRUE(verbose)) {
-    cat(selection$sentence, sep = "\n\n")
-  }
-  return(invisible(selection$sentence))
+  return(paste(selection[as.character(id), "sentence"], collapse = "\n\n"))
 }
