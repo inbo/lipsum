@@ -12,4 +12,5 @@
 #' @name lipsum
 #' @keywords data
 #' @docType data
-globalVariables("lipsum", "lipsum")
+#' @export
+NULL
